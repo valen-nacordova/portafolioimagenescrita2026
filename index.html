@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#08090b">
+  <meta name="theme-color" content="#121415">
 
   <meta
     name="description"
@@ -20,6 +19,9 @@
     rel="stylesheet"
   >
 
+  <!-- Librería p5.js para el sandbox ejecutable -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+
   <link rel="stylesheet" href="./style.css">
   <script src="./app.js" defer></script>
 </head>
@@ -27,6 +29,9 @@
 <body>
   <!-- Cursor Personalizado -->
   <div id="custom-cursor" class="custom-cursor" aria-hidden="true"></div>
+
+  <!-- Tragaluz / Halo de Luz Filtrada en Scroll -->
+  <div id="skylight-beam" class="skylight-beam" aria-hidden="true"></div>
 
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
@@ -50,10 +55,10 @@
 
   <main id="contenido">
 
-    <!-- PORTADA -->
+    <!-- PORTADA / BANNER -->
     <section class="hero" aria-labelledby="hero-title">
       
-      <!-- Canvas Generativo de p5.js / Canvas 2D -->
+      <!-- Canvas de Iteración Geométrica y Lumínica -->
       <canvas id="hero-canvas" class="hero-canvas"></canvas>
 
       <div class="hero-inner">
@@ -76,15 +81,6 @@
               <span aria-hidden="true">→</span>
             </a>
           </div>
-
-          <button
-            id="toggle-hero-motion"
-            class="hero-motion-toggle"
-            type="button"
-            hidden
-          >
-            Pausar movimiento
-          </button>
         </div>
       </div>
     </section>
@@ -244,11 +240,11 @@
           <div>
             <h2>Valentina Córdova Rosas</h2>
 
-            <p class="contact-role muted">
+            <p class="contact-role">
               Estudiante de diseño
             </p>
 
-            <p class="contact-university muted">
+            <p class="contact-university">
               Pontificia Universidad Católica de Valparaíso
             </p>
           </div>
@@ -279,7 +275,7 @@
         </div>
       </div>
 
-      <div class="footer-bottom muted small">
+      <div class="footer-bottom small">
         <span>Imagen Escrita 2026 · Portafolio académico</span>
         <a href="#contenido">Volver arriba ↑</a>
       </div>
@@ -326,7 +322,7 @@
           aria-selected="false"
           aria-controls="modal-tab-code"
         >
-          Código p5.js
+          Código p5.js (Sandbox)
         </button>
       </div>
 
@@ -338,10 +334,20 @@
         ></div>
       </div>
 
-      <!-- Contenido 2: Bloque de Código -->
+      <!-- Contenido 2: Sandbox / Visor Ejecutable p5.js -->
       <div id="modal-tab-code" class="tab-content" role="tabpanel" hidden>
-        <div class="code-wrapper">
-          <pre><code id="detail-code"></code></pre>
+        <div class="sandbox-container">
+          <div id="p5-sandbox-canvas" class="sandbox-canvas-wrapper"></div>
+
+          <div class="sandbox-editor-wrapper">
+            <div class="sandbox-toolbar">
+              <span class="eyebrow muted">Código p5.js (Editable)</span>
+              <button id="run-p5-code" type="button" class="tag-btn active">
+                ▶ Ejecutar cambios
+              </button>
+            </div>
+            <textarea id="p5-code-input" class="code-textarea" spellcheck="false"></textarea>
+          </div>
         </div>
       </div>
 
