@@ -1,14 +1,14 @@
 "use strict";
 
 /* =====================================================
-   CONTENIDO EDITABLE
+   CONTENIDO
    ===================================================== */
 
 const sitio = {
-  nombre: "[Nombre]",
-  rol: "[Rol]",
-  correo: "",
-  wiki: ""
+  nombre: "Valentina Córdova Rosas",
+  rol: "Estudiante de diseño",
+  correo: "valentina.cordova.r@mail.pucv.cl",
+  wiki: "https://wiki.ead.pucv.cl/Valentina_C%C3%B3rdova"
 };
 
 const tareas = [
@@ -55,12 +55,12 @@ const tareas = [
 ];
 
 const proyecto = {
-  titulo: "[Título del proyecto]",
-  resumen: "[Descripción breve del proyecto final.]",
+  titulo: "Desplazamiento del eco lumínico en gradiente lineal",
+  resumen: "",
   descripcion: "",
   imagen: "./assets/proyectofinal.png",
   p5: "",
-  wiki: ""
+  wiki: "https://wiki.ead.pucv.cl/Desplazamiento_del_eco_lum%C3%ADnico_en_gradiente_lineal_-_Entrega_U1_IE"
 };
 
 /* =====================================================
@@ -185,7 +185,10 @@ const correo = $("#contact-email");
 if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sitio.correo)) {
   correo.textContent = sitio.correo;
   correo.href = `mailto:${sitio.correo}`;
+  correo.removeAttribute("aria-disabled");
+  correo.removeAttribute("title");
 } else {
+  correo.removeAttribute("href");
   correo.setAttribute("aria-disabled", "true");
   correo.title = "Correo pendiente de completar";
 }
@@ -301,7 +304,10 @@ tareas.forEach((tarea, indice) => {
 /* Proyecto final */
 
 $("#project-title").textContent = proyecto.titulo;
-$("#project-summary").textContent = proyecto.resumen;
+
+const resumenProyecto = $("#project-summary");
+resumenProyecto.textContent = proyecto.resumen;
+resumenProyecto.hidden = !proyecto.resumen.trim();
 
 pintarVista(
   $("#project-preview"),
