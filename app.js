@@ -2,12 +2,6 @@
 
 /* =====================================================
    CONTENIDO EDITABLE
-
-   Para agregar imágenes, coloca la ruta en "imagen".
-   Ejemplo: imagen: "./assets/imagen1.png"
-
-   Las descripciones quedan vacías hasta que las completes.
-   No es necesario añadirlas para que funcionen los enlaces.
    ===================================================== */
 
 const sitio = {
@@ -20,17 +14,17 @@ const sitio = {
 const tareas = [
   {
     titulo: "The Dark Side Of The Moon",
-    resumen: "Recreación de portada de album usando geometrías de p5js.",
+    resumen: "",
     descripcion: "",
-    imagen: "sitio web ie 2026 - html css/assets/enacargo1.png",
+    imagen: "./assets/encargo1.png",
     p5: "",
     wiki: "https://wiki.ead.pucv.cl/Encargo_1_IE_-_The_Dark_Side_Of_The_Moon_-_Valentina_C%C3%B3rdova"
   },
   {
     titulo: "Tramas en extension radial",
-    resumen: ".",
+    resumen: "",
     descripcion: "",
-    imagen: "",
+    imagen: "./assets/encargo2.png",
     p5: "",
     wiki: "https://wiki.ead.pucv.cl/Encargo_2_IE_-_Valentina_C%C3%B3rdova_Rosas"
   },
@@ -38,7 +32,7 @@ const tareas = [
     titulo: "Movimiento concéntrico de romboide en transformación",
     resumen: "",
     descripcion: "",
-    imagen: "",
+    imagen: "./assets/encargo3.png",
     p5: "",
     wiki: "https://wiki.ead.pucv.cl/Encargo_3_IE_-_Valentina_C%C3%B3rdova"
   },
@@ -46,7 +40,7 @@ const tareas = [
     titulo: "Floración radial en eco de luz",
     resumen: "",
     descripcion: "",
-    imagen: "",
+    imagen: "./assets/encargo4.png",
     p5: "",
     wiki: "https://wiki.ead.pucv.cl/Encargo_4_IE_-_Valentina_C%C3%B3rdova"
   },
@@ -54,7 +48,7 @@ const tareas = [
     titulo: "Explosión estelar",
     resumen: "",
     descripcion: "",
-    imagen: "",
+    imagen: "./assets/encargo5.png",
     p5: "",
     wiki: "https://wiki.ead.pucv.cl/Encargo_5_IE_-_Valentina_C%C3%B3rdova"
   }
@@ -64,7 +58,7 @@ const proyecto = {
   titulo: "[Título del proyecto]",
   resumen: "[Descripción breve del proyecto final.]",
   descripcion: "",
-  imagen: "",
+  imagen: "./assets/proyectofinal.png",
   p5: "",
   wiki: ""
 };
@@ -145,7 +139,7 @@ function pintarVista(contenedor, imagen, titulo) {
 
     contenedor.append(
       cruz,
-      crearTexto("span", "", "Vista previa vacía")
+      crearTexto("span", "", "Vista previa no disponible")
     );
   }
 
@@ -169,14 +163,15 @@ function pintarVista(contenedor, imagen, titulo) {
   }
 
   const img = document.createElement("img");
-  img.src = url.href;
   img.alt = titulo;
   img.loading = "lazy";
+  img.decoding = "async";
 
   img.addEventListener("error", mostrarMarcador, {
     once: true
   });
 
+  img.src = url.href;
   contenedor.append(img);
 }
 
@@ -248,6 +243,8 @@ function abrirDetalle(elemento, etiqueta, esProyecto = false) {
 }
 
 /* Crear las cinco tarjetas */
+
+lista.replaceChildren();
 
 tareas.forEach((tarea, indice) => {
   const tarjeta = document.createElement("article");
