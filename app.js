@@ -20,15 +20,15 @@ const sitio = {
 const tareas = [
   {
     titulo: "The Dark Side Of The Moon",
-    resumen: "",
+    resumen: "Recreación de portada de album usando geometrías de p5js.",
     descripcion: "",
-    imagen: "",
+    imagen: "sitio web ie 2026 - html css/assets/enacargo1.png",
     p5: "",
     wiki: "https://wiki.ead.pucv.cl/Encargo_1_IE_-_The_Dark_Side_Of_The_Moon_-_Valentina_C%C3%B3rdova"
   },
   {
     titulo: "Tramas en extension radial",
-    resumen: "",
+    resumen: ".",
     descripcion: "",
     imagen: "",
     p5: "",
