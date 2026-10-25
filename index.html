@@ -9,7 +9,7 @@
     content="Portafolio académico de Imagen Escrita 2026."
   >
 
-  <title>Imagen Escrita 2026</title>
+  <title>Portafolio Imagen Escrita 2026</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,13 +19,6 @@
   >
 
   <link rel="stylesheet" href="./style.css">
-
-  <!-- Biblioteca de p5.js: debe cargarse antes de app.js -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js"
-    defer
-  ></script>
-
   <script src="./app.js" defer></script>
 </head>
 
@@ -34,7 +27,9 @@
 
   <header class="header">
     <div class="container header-inner">
-      <a class="brand" href="./index.html">Imagen Escrita 2026</a>
+      <a class="brand" href="./index.html">
+        Imagen Escrita 2026
+      </a>
 
       <nav aria-label="Navegación principal">
         <a href="#asignatura">Asignatura</a>
@@ -49,42 +44,14 @@
   </header>
 
   <main id="contenido">
-    <section class="hero-animation" aria-label="Portada">
-      <div
-        id="sketch-container"
-        role="img"
-        aria-label="Campo de 700 partículas blancas que se desplazan hacia la derecha sobre un fondo negro."
-      >
-        <p id="sketch-fallback" class="muted">
-          Animación de partículas · Imagen Escrita 2026
-        </p>
-      </div>
-
-      <div class="hero-animation-footer">
-        <div class="container hero-animation-links">
-          <a href="#asignatura">↓ Asignatura y portafolio</a>
-
-          <button
-            id="toggle-animation"
-            class="text-link"
-            type="button"
-            aria-controls="sketch-container"
-            hidden
-          >
-            Pausar animación
-          </button>
-
-          <a
-            href="https://editor.p5js.org/valent.na/sketches/20C2N5keQ"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Ver código p5.js ↗
-          </a>
-        </div>
+    <!-- Portada: únicamente el título -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-inner">
+        <h1 id="hero-title">Portafolio Imagen Escrita 2026</h1>
       </div>
     </section>
 
+    <!-- Asignatura -->
     <section
       id="asignatura"
       class="container subject"
@@ -92,24 +59,25 @@
     >
       <p class="eyebrow muted">Asignatura</p>
 
-      <h1 id="subject-title">Imagen Escrita 2026</h1>
+      <h2 id="subject-title">Imagen Escrita 2026</h2>
 
       <p class="intro muted">
         Exploración de imagen, escritura y experimentación visual con p5.js.
         Un portafolio para reunir tareas, procesos y un proyecto de la asignatura.
       </p>
 
-      <div class="inline-links">
-        <a class="button" data-link="asignatura">
-          Página de la asignatura ↗
-        </a>
-
-        <span class="muted small" data-url="asignatura">
-          [URL de asignatura]
-        </span>
-      </div>
+      <a
+        class="button subject-button"
+        href="https://wiki.ead.pucv.cl/Imagen_Escrita"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Página de la asignatura
+        <span aria-hidden="true">↗</span>
+      </a>
     </section>
 
+    <!-- Tareas -->
     <section
       id="tareas"
       class="container section"
@@ -119,9 +87,6 @@
         <div>
           <p class="eyebrow cyan">Tareas</p>
           <h2 id="tasks-title">Ejercicios de la asignatura</h2>
-          <p class="muted small">
-            Tarjetas de ejemplo · contenidos por completar
-          </p>
         </div>
 
         <div class="scroll-controls">
@@ -132,14 +97,18 @@
             type="button"
             aria-label="Tareas anteriores"
             aria-controls="task-list"
-          >←</button>
+          >
+            ←
+          </button>
 
           <button
             id="next"
             type="button"
             aria-label="Tareas siguientes"
             aria-controls="task-list"
-          >→</button>
+          >
+            →
+          </button>
         </div>
       </div>
 
@@ -147,17 +116,18 @@
         id="task-list"
         class="task-list"
         role="region"
-        aria-label="Tareas de la asignatura"
+        aria-label="Los cinco encargos de la asignatura"
         tabindex="0"
       ></div>
 
       <noscript>
         <p class="muted">
-          Activa JavaScript para ver las tareas y la animación.
+          Activa JavaScript para consultar las tarjetas y sus detalles.
         </p>
       </noscript>
     </section>
 
+    <!-- Proyecto -->
     <section
       id="proyecto"
       class="container section"
@@ -171,9 +141,7 @@
 
         <div class="project-info">
           <div>
-            <p class="eyebrow violet">
-              Ejemplo de estructura · Un proyecto
-            </p>
+            <p class="eyebrow violet">Proyecto</p>
             <h3 id="project-title">[Título del proyecto]</h3>
             <p id="project-summary" class="muted">
               [Descripción breve del proyecto final.]
@@ -187,13 +155,15 @@
             aria-haspopup="dialog"
             aria-controls="detail"
           >
-            Ver proyecto →
+            Ver proyecto
+            <span aria-hidden="true">→</span>
           </button>
         </div>
       </article>
     </section>
   </main>
 
+  <!-- Contacto -->
   <footer id="contacto" class="footer">
     <div class="container">
       <p class="eyebrow muted">Contacto</p>
@@ -211,7 +181,7 @@
 
         <div>
           <p class="eyebrow muted">Wiki</p>
-          <a data-link="wiki" class="text-link">[URL de wiki]</a>
+          <a id="contact-wiki" class="text-link">[Wiki personal]</a>
         </div>
       </div>
 
@@ -222,13 +192,12 @@
     </div>
   </footer>
 
+  <!-- Detalle de tarea o proyecto -->
   <dialog id="detail" aria-labelledby="detail-title">
     <div class="modal-header">
       <div>
-        <p id="detail-label" class="eyebrow cyan">
-          Tarea / Ejemplo de estructura
-        </p>
-        <h2 id="detail-title">[Título de la tarea]</h2>
+        <p id="detail-label" class="eyebrow cyan">Encargo</p>
+        <h2 id="detail-title"></h2>
       </div>
 
       <button
@@ -237,38 +206,32 @@
         type="button"
         aria-label="Cerrar detalle"
         autofocus
-      >×</button>
+      >
+        ×
+      </button>
     </div>
 
     <div class="modal-body">
       <div id="detail-preview" class="preview detail-preview"></div>
 
-      <div class="preview-caption muted">
-        <span id="detail-caption">p5.js / Representación estática</span>
-        <span id="detail-example-note">
-          Visual de ejemplo · no corresponde a una tarea real
-        </span>
-      </div>
-
-      <div class="description">
+      <div id="detail-description-block" class="description" hidden>
         <p class="eyebrow muted">Descripción</p>
         <p id="detail-description" class="muted"></p>
       </div>
 
       <div class="modal-bottom">
-        <div class="resource">
-          <span class="eyebrow muted">Ver en p5.js</span>
-          <a id="detail-p5-text" class="text-link">[URL de p5.js]</a>
-        </div>
-
-        <div class="resource">
-          <span class="eyebrow muted">Ver en wiki</span>
-          <a id="detail-wiki-text" class="text-link">[URL de wiki]</a>
-        </div>
+        <p id="detail-pending" class="muted small" hidden>
+          Enlace pendiente de completar.
+        </p>
 
         <div class="modal-actions">
-          <a id="detail-p5" class="button">Ver en p5.js ↗</a>
-          <a id="detail-wiki" class="button button-outline">Ver en wiki ↗</a>
+          <a id="detail-p5" class="button button-outline" hidden>
+            Ver en p5.js ↗
+          </a>
+
+          <a id="detail-wiki" class="button" hidden>
+            Ver en wiki ↗
+          </a>
         </div>
       </div>
     </div>
