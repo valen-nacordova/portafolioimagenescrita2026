@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,7 +15,6 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet"
@@ -25,6 +25,9 @@
 </head>
 
 <body>
+  <!-- Cursor Personalizado -->
+  <div id="custom-cursor" class="custom-cursor" aria-hidden="true"></div>
+
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
   <header class="header">
@@ -49,35 +52,9 @@
 
     <!-- PORTADA -->
     <section class="hero" aria-labelledby="hero-title">
-
-      <!--
-        El recorte muestra los trazos de portada.jpg,
-        excluyendo sus textos y botones originales.
-      -->
-      <svg
-        class="hero-art"
-        viewBox="0 100 1264 668"
-        preserveAspectRatio="xMidYMid slice"
-        aria-hidden="true"
-        focusable="false"
-      >
-        <defs>
-          <clipPath id="hero-art-clip">
-            <path d="M0 100H1264V768H500V440H0Z"></path>
-          </clipPath>
-        </defs>
-
-        <g class="hero-ribbon">
-          <image
-            href="./assets/portada.jpg"
-            x="0"
-            y="0"
-            width="1264"
-            height="848"
-            clip-path="url(#hero-art-clip)"
-          ></image>
-        </g>
-      </svg>
+      
+      <!-- Canvas Generativo de p5.js / Canvas 2D -->
+      <canvas id="hero-canvas" class="hero-canvas"></canvas>
 
       <div class="hero-inner">
         <div class="hero-content">
@@ -176,6 +153,28 @@
           >
             →
           </button>
+        </div>
+      </div>
+
+      <!-- BARRA DE BÚSQUEDA Y FILTROS -->
+      <div class="tasks-filter-bar reveal">
+        <div class="search-input-wrapper">
+          <span class="search-icon" aria-hidden="true">🔍</span>
+          <input
+            id="task-search"
+            type="search"
+            placeholder="Buscar encargo por título..."
+            aria-label="Buscar encargos"
+          />
+        </div>
+
+        <div class="filter-tags" role="group" aria-label="Filtrar encargos por número">
+          <button type="button" class="tag-btn active" data-filter="todos">Todos</button>
+          <button type="button" class="tag-btn" data-filter="1">Encargo 1</button>
+          <button type="button" class="tag-btn" data-filter="2">Encargo 2</button>
+          <button type="button" class="tag-btn" data-filter="3">Encargo 3</button>
+          <button type="button" class="tag-btn" data-filter="4">Encargo 4</button>
+          <button type="button" class="tag-btn" data-filter="5">Encargo 5</button>
         </div>
       </div>
 
@@ -307,10 +306,44 @@
     </div>
 
     <div class="modal-body">
-      <div
-        id="detail-preview"
-        class="preview detail-preview"
-      ></div>
+      <!-- Pestañas de Navegación -->
+      <div class="modal-tabs" role="tablist" aria-label="Modo de visualización">
+        <button
+          id="tab-btn-preview"
+          class="tab-btn active"
+          type="button"
+          role="tab"
+          aria-selected="true"
+          aria-controls="modal-tab-preview"
+        >
+          Vista Previa
+        </button>
+        <button
+          id="tab-btn-code"
+          class="tab-btn"
+          type="button"
+          role="tab"
+          aria-selected="false"
+          aria-controls="modal-tab-code"
+        >
+          Código p5.js
+        </button>
+      </div>
+
+      <!-- Contenido 1: Imagen / Vista -->
+      <div id="modal-tab-preview" class="tab-content" role="tabpanel">
+        <div
+          id="detail-preview"
+          class="preview detail-preview"
+        ></div>
+      </div>
+
+      <!-- Contenido 2: Bloque de Código -->
+      <div id="modal-tab-code" class="tab-content" role="tabpanel" hidden>
+        <div class="code-wrapper">
+          <pre><code id="detail-code"></code></pre>
+        </div>
+      </div>
 
       <div
         id="detail-description-block"
