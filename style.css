@@ -181,23 +181,13 @@ nav span {
   background: var(--bg);
 }
 
-.hero-art {
+.hero-canvas {
   position: absolute;
   inset: 0;
   z-index: -2;
-  display: block;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  animation: artwork-in 1.2s var(--ease) both;
-}
-
-.hero-ribbon {
-  animation: ribbon-float 12s ease-in-out infinite;
-}
-
-.hero.is-motion-paused .hero-ribbon {
-  animation-play-state: paused;
 }
 
 .hero::after {
@@ -473,7 +463,11 @@ nav span {
 
   scroll-snap-align: start;
 
+  transform-style: preserve-3d;
+  will-change: transform;
+
   transition:
+    transform 250ms var(--ease),
     border-color 250ms ease,
     box-shadow 250ms ease;
 }
@@ -550,7 +544,10 @@ nav span {
   border-radius: 2px;
   background: var(--surface);
 
-  transition: border-color 250ms ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+
+  transition: transform 250ms var(--ease), border-color 250ms ease;
 }
 
 .project-preview {
@@ -732,6 +729,58 @@ dialog[open]::backdrop {
   object-fit: contain;
 }
 
+/* PESTAÑAS DEL MODAL */
+
+.modal-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+}
+
+.tab-btn {
+  padding: 6px 14px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+  transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease;
+}
+
+.tab-btn:hover {
+  color: var(--text);
+}
+
+.tab-btn.active {
+  background: #1e2227;
+  color: var(--lime);
+  border-color: var(--border);
+}
+
+/* BLOQUE DE CÓDIGO p5.js */
+
+.code-wrapper {
+  max-height: 340px;
+  overflow-y: auto;
+  background: #0d0f12;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 16px 20px;
+}
+
+.code-wrapper pre {
+  margin: 0;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--cyan);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
 .description {
   margin-top: 24px;
   padding-block: 20px;
@@ -749,6 +798,110 @@ dialog[open]::backdrop {
   display: flex;
   justify-content: flex-end;
   margin-top: 24px;
+}
+
+/* FILTRO Y BUSCADOR DE ENCARGOS */
+
+.tasks-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.search-input-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: 240px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+#task-search {
+  width: 100%;
+  padding: 10px 14px 10px 36px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+#task-search:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 2px rgba(137, 207, 224, 0.2);
+}
+
+.filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-btn {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease;
+}
+
+.tag-btn:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
+
+.tag-btn.active {
+  background: rgba(137, 207, 224, 0.15);
+  color: var(--cyan);
+  border-color: var(--cyan);
+}
+
+.task-card.is-hidden {
+  display: none !important;
+}
+
+/* CURSOR PERSONALIZADO */
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--lime);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 200ms var(--ease), height 200ms var(--ease), background-color 200ms ease;
+  mix-blend-mode: difference;
+  opacity: 0;
+}
+
+.custom-cursor.is-active {
+  opacity: 1;
+}
+
+.custom-cursor.is-hovering {
+  width: 42px;
+  height: 42px;
+  background: rgba(213, 248, 121, 0.85);
+  border-color: transparent;
 }
 
 /* APARICIONES AL DESPLAZARSE */
@@ -804,37 +957,10 @@ dialog[open]::backdrop {
 
 /* ANIMACIONES */
 
-@keyframes ribbon-float {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-
-  35% {
-    transform: translate(6px, -8px);
-  }
-
-  70% {
-    transform: translate(-5px, -3px);
-  }
-}
-
 @keyframes content-in {
   from {
     opacity: 0;
     transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes artwork-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
   }
 
   to {
@@ -902,21 +1028,6 @@ dialog[open]::backdrop {
     min-height: 720px;
     padding-top: 360px;
     padding-bottom: 64px;
-  }
-
-  .hero-art {
-    inset: 24px auto auto -35%;
-    width: 155%;
-    height: 420px;
-  }
-
-  .hero::after {
-    background: linear-gradient(
-      0deg,
-      var(--bg) 15%,
-      rgb(8 9 11 / 10%) 60%,
-      transparent
-    );
   }
 
   .hero h1 {
@@ -1017,7 +1128,6 @@ dialog[open]::backdrop {
     transition: none !important;
   }
 
-  .hero-ribbon,
   .reveal.is-pending {
     opacity: 1;
     transform: none !important;
@@ -1027,5 +1137,9 @@ dialog[open]::backdrop {
   .preview img,
   .text-link span {
     transform: none !important;
+  }
+
+  .custom-cursor {
+    display: none !important;
   }
 }
