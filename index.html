@@ -4,15 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#08090b">
+
   <meta
     name="description"
-    content="Portafolio académico de Imagen Escrita 2026."
+    content="Portafolio de Valentina Córdova Rosas para Imagen Escrita 2026, Pontificia Universidad Católica de Valparaíso."
   >
 
-  <title>Portafolio Imagen Escrita 2026</title>
+  <title>Portafolio Imagen Escrita 2026 · Valentina Córdova Rosas</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet"
@@ -44,46 +46,111 @@
   </header>
 
   <main id="contenido">
-    <!-- Portada: únicamente el título -->
+
+    <!-- PORTADA -->
     <section class="hero" aria-labelledby="hero-title">
-      <div class="container hero-inner">
-        <h1 id="hero-title">Portafolio Imagen Escrita 2026</h1>
+
+      <!--
+        El recorte muestra los trazos de portada.jpg,
+        excluyendo sus textos y botones originales.
+      -->
+      <svg
+        class="hero-art"
+        viewBox="0 100 1264 668"
+        preserveAspectRatio="xMidYMid slice"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <defs>
+          <clipPath id="hero-art-clip">
+            <path d="M0 100H1264V768H500V440H0Z"></path>
+          </clipPath>
+        </defs>
+
+        <g class="hero-ribbon">
+          <image
+            href="./assets/portada.jpg"
+            x="0"
+            y="0"
+            width="1264"
+            height="848"
+            clip-path="url(#hero-art-clip)"
+          ></image>
+        </g>
+      </svg>
+
+      <div class="hero-inner">
+        <div class="hero-content">
+          <h1 id="hero-title">
+            Portafolio<br>
+            Imagen Escrita 2026
+          </h1>
+
+          <p>Imagen, escritura y experimentación visual.</p>
+
+          <div class="hero-actions">
+            <a class="button" href="#tareas">
+              Explorar tareas
+              <span aria-hidden="true">↓</span>
+            </a>
+
+            <a class="button button-project" href="#proyecto">
+              Ver proyecto
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+
+          <button
+            id="toggle-hero-motion"
+            class="hero-motion-toggle"
+            type="button"
+            hidden
+          >
+            Pausar movimiento
+          </button>
+        </div>
       </div>
     </section>
 
-    <!-- Asignatura -->
+    <!-- ASIGNATURA -->
     <section
       id="asignatura"
       class="container subject"
       aria-labelledby="subject-title"
     >
-      <p class="eyebrow muted">Asignatura</p>
+      <div class="reveal">
+        <p class="eyebrow muted">Asignatura</p>
 
-      <h2 id="subject-title">Imagen Escrita 2026</h2>
+        <p class="university muted">
+          Pontificia Universidad Católica de Valparaíso
+        </p>
 
-      <p class="intro muted">
-        Exploración de imagen, escritura y experimentación visual con p5.js.
-        Un portafolio para reunir tareas, procesos y un proyecto de la asignatura.
-      </p>
+        <h2 id="subject-title">Imagen Escrita 2026</h2>
 
-      <a
-        class="button subject-button"
-        href="https://wiki.ead.pucv.cl/Imagen_Escrita"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Página de la asignatura
-        <span aria-hidden="true">↗</span>
-      </a>
+        <p class="intro muted">
+          Exploración de imagen, escritura y experimentación visual con p5.js.
+          Un portafolio para reunir tareas, procesos y un proyecto de la asignatura.
+        </p>
+
+        <a
+          class="button subject-button"
+          href="https://wiki.ead.pucv.cl/Imagen_Escrita"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Página de la asignatura
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
     </section>
 
-    <!-- Tareas -->
+    <!-- TAREAS -->
     <section
       id="tareas"
-      class="container section"
+      class="container section tasks-section"
       aria-labelledby="tasks-title"
     >
-      <div class="section-heading">
+      <div class="section-heading reveal">
         <div>
           <p class="eyebrow cyan">Tareas</p>
           <h2 id="tasks-title">Ejercicios de la asignatura</h2>
@@ -127,25 +194,30 @@
       </noscript>
     </section>
 
-    <!-- Proyecto -->
+    <!-- PROYECTO -->
     <section
       id="proyecto"
-      class="container section"
+      class="container section project-section"
       aria-labelledby="project-section-title"
     >
-      <p class="eyebrow violet">Proyectos</p>
-      <h2 id="project-section-title">Proyecto final</h2>
+      <div class="reveal">
+        <p class="eyebrow violet">Proyecto</p>
+        <h2 id="project-section-title">Proyecto final</h2>
+      </div>
 
-      <article class="project-card">
-        <div id="project-preview" class="preview project-preview"></div>
+      <article class="project-card reveal">
+        <div
+          id="project-preview"
+          class="preview project-preview"
+        ></div>
 
         <div class="project-info">
           <div>
-            <p class="eyebrow violet">Proyecto</p>
-            <h3 id="project-title">[Título del proyecto]</h3>
-            <p id="project-summary" class="muted">
-              [Descripción breve del proyecto final.]
-            </p>
+            <p class="eyebrow violet">Entrega U1</p>
+
+            <h3 id="project-title">
+              Desplazamiento del eco lumínico en gradiente lineal
+            </h3>
           </div>
 
           <button
@@ -163,36 +235,59 @@
     </section>
   </main>
 
-  <!-- Contacto -->
+  <!-- CONTACTO -->
   <footer id="contacto" class="footer">
     <div class="container">
-      <p class="eyebrow muted">Contacto</p>
+      <div class="reveal">
+        <p class="eyebrow muted">Contacto</p>
 
-      <div class="contact-grid">
-        <div>
-          <h2 id="contact-name">[Nombre]</h2>
-          <p id="contact-role" class="muted">[Rol]</p>
-        </div>
+        <div class="contact-grid">
+          <div>
+            <h2>Valentina Córdova Rosas</h2>
 
-        <div>
-          <p class="eyebrow muted">Correo</p>
-          <a id="contact-email" class="text-link">[Correo]</a>
-        </div>
+            <p class="contact-role muted">
+              Estudiante de diseño
+            </p>
 
-        <div>
-          <p class="eyebrow muted">Wiki</p>
-          <a id="contact-wiki" class="text-link">[Wiki personal]</a>
+            <p class="contact-university muted">
+              Pontificia Universidad Católica de Valparaíso
+            </p>
+          </div>
+
+          <div>
+            <p class="eyebrow muted">Correo</p>
+
+            <a
+              class="text-link"
+              href="mailto:valentina.cordova.r@mail.pucv.cl"
+            >
+              valentina.cordova.r@mail.pucv.cl
+            </a>
+          </div>
+
+          <div>
+            <p class="eyebrow muted">Wiki</p>
+
+            <a
+              class="text-link"
+              href="https://wiki.ead.pucv.cl/Valentina_C%C3%B3rdova"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ver wiki personal ↗
+            </a>
+          </div>
         </div>
       </div>
 
       <div class="footer-bottom muted small">
         <span>Imagen Escrita 2026 · Portafolio académico</span>
-        <span>Datos y contenidos editables</span>
+        <a href="#contenido">Volver arriba ↑</a>
       </div>
     </div>
   </footer>
 
-  <!-- Detalle de tarea o proyecto -->
+  <!-- DETALLE DE TAREA O PROYECTO -->
   <dialog id="detail" aria-labelledby="detail-title">
     <div class="modal-header">
       <div>
@@ -212,27 +307,30 @@
     </div>
 
     <div class="modal-body">
-      <div id="detail-preview" class="preview detail-preview"></div>
+      <div
+        id="detail-preview"
+        class="preview detail-preview"
+      ></div>
 
-      <div id="detail-description-block" class="description" hidden>
+      <div
+        id="detail-description-block"
+        class="description"
+        hidden
+      >
         <p class="eyebrow muted">Descripción</p>
         <p id="detail-description" class="muted"></p>
       </div>
 
       <div class="modal-bottom">
-        <p id="detail-pending" class="muted small" hidden>
-          Enlace pendiente de completar.
-        </p>
-
-        <div class="modal-actions">
-          <a id="detail-p5" class="button button-outline" hidden>
-            Ver en p5.js ↗
-          </a>
-
-          <a id="detail-wiki" class="button" hidden>
-            Ver en wiki ↗
-          </a>
-        </div>
+        <a
+          id="detail-wiki"
+          class="button"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Ver en wiki
+          <span aria-hidden="true">↗</span>
+        </a>
       </div>
     </div>
   </dialog>
