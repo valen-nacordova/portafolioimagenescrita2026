@@ -10,35 +10,84 @@ const tareas = [
     descripcion: "Estudio sintáctico de refracción de color y formas mediante primitivas de p5.js.",
     imagen: "./assets/encargo1.png",
     wiki: "https://wiki.ead.pucv.cl/Encargo_1_IE_-_The_Dark_Side_Of_The_Moon_-_Valentina_C%C3%B3rdova",
-    codigo: `function setup() {\n  createCanvas(400, 400);\n}\n\nfunction draw() {\n  background(8, 9, 11);\n  // Algoritmo p5.js para Encargo 1\n}`
+    codigo: `function setup() {
+  createCanvas(300, 300);
+}
+function draw() {
+  background(18, 20, 21);
+  stroke(232, 141, 57);
+  noFill();
+  ellipse(width/2, height/2, 120 + sin(frameCount*0.05)*30);
+}`
   },
   {
     titulo: "Tramas en extension radial",
     descripcion: "",
     imagen: "./assets/encargo2.png",
     wiki: "https://wiki.ead.pucv.cl/Encargo_2_IE_-_Valentina_C%C3%B3rdova_Rosas",
-    codigo: `function setup() {\n  createCanvas(400, 400);\n}\n\nfunction draw() {\n  background(8, 9, 11);\n  // Algoritmo p5.js para Encargo 2\n}`
+    codigo: `function setup() {
+  createCanvas(300, 300);
+}
+function draw() {
+  background(18, 20, 21);
+  stroke(95, 168, 184);
+  for(let i=0; i<12; i++){
+    let a = (i/12)*TWO_PI + frameCount*0.02;
+    line(width/2, height/2, width/2 + cos(a)*100, height/2 + sin(a)*100);
+  }
+}`
   },
   {
     titulo: "Movimiento concéntrico de romboide en transformación",
     descripcion: "",
     imagen: "./assets/encargo3.png",
     wiki: "https://wiki.ead.pucv.cl/Encargo_3_IE_-_Valentina_C%C3%B3rdova",
-    codigo: `function setup() {\n  createCanvas(400, 400);\n}\n\nfunction draw() {\n  background(8, 9, 11);\n  // Algoritmo p5.js para Encargo 3\n}`
+    codigo: `function setup() {
+  createCanvas(300, 300);
+}
+function draw() {
+  background(18, 20, 21);
+  translate(width/2, height/2);
+  rotate(frameCount*0.02);
+  stroke(216, 195, 157);
+  noFill();
+  quad(0, -60, 80, 0, 0, 60, -80, 0);
+}`
   },
   {
     titulo: "Floración radial en eco de luz",
     descripcion: "",
     imagen: "./assets/encargo4.png",
     wiki: "https://wiki.ead.pucv.cl/Encargo_4_IE_-_Valentina_C%C3%B3rdova",
-    codigo: `function setup() {\n  createCanvas(400, 400);\n}\n\nfunction draw() {\n  background(8, 9, 11);\n  // Algoritmo p5.js para Encargo 4\n}`
+    codigo: `function setup() {
+  createCanvas(300, 300);
+}
+function draw() {
+  background(18, 20, 21);
+  stroke(232, 141, 57, 180);
+  noFill();
+  for(let r=10; r<120; r+=20){
+    ellipse(width/2, height/2, r + sin(frameCount*0.03)*15);
+  }
+}`
   },
   {
     titulo: "Explosión estelar",
     descripcion: "",
     imagen: "./assets/encargo5.png",
     wiki: "https://wiki.ead.pucv.cl/Encargo_5_IE_-_Valentina_C%C3%B3rdova",
-    codigo: `function setup() {\n  createCanvas(400, 400);\n}\n\nfunction draw() {\n  background(8, 9, 11);\n  // Algoritmo p5.js para Encargo 5\n}`
+    codigo: `function setup() {
+  createCanvas(300, 300);
+}
+function draw() {
+  background(18, 20, 21);
+  stroke(200, 90, 66);
+  for(let i=0; i<20; i++){
+    let a = random(TWO_PI);
+    let r = random(20, 110);
+    point(width/2 + cos(a)*r, height/2 + sin(a)*r);
+  }
+}`
   }
 ];
 
@@ -47,7 +96,18 @@ const proyecto = {
   descripcion: "",
   imagen: "./assets/proyectofinal.png",
   wiki: "https://wiki.ead.pucv.cl/Desplazamiento_del_eco_lum%C3%ADnico_en_gradiente_lineal_-_Entrega_U1_IE",
-  codigo: `function setup() {\n  createCanvas(800, 450);\n}\n\nfunction draw() {\n  background(8, 9, 11);\n  // Algoritmo p5.js Proyecto Final U1\n}`
+  codigo: `function setup() {
+  createCanvas(300, 300);
+}
+function draw() {
+  background(18, 20, 21);
+  translate(width/2, height/2);
+  stroke(232, 141, 57);
+  for(let i=0; i<8; i++){
+    rotate(PI/4 + frameCount*0.01);
+    line(0, 0, 90, 0);
+  }
+}`
 };
 
 /* =====================================================
@@ -61,9 +121,7 @@ const modal = $("#detail");
 const botonAnterior = $("#previous");
 const botonSiguiente = $("#next");
 
-const reducirMovimiento = window.matchMedia(
-  "(prefers-reduced-motion: reduce)"
-);
+const reducirMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 let ultimoBoton = null;
 
@@ -88,21 +146,12 @@ function urlWeb(valor) {
    IMÁGENES
    ===================================================== */
 
-function pintarVista(
-  contenedor,
-  imagen,
-  titulo,
-  cargaInmediata = false
-) {
+function pintarVista(contenedor, imagen, titulo, cargaInmediata = false) {
   contenedor.replaceChildren();
 
   function mostrarError() {
     contenedor.replaceChildren(
-      crearTexto(
-        "p",
-        "image-fallback",
-        "Vista previa no disponible"
-      )
+      crearTexto("p", "image-fallback", "Vista previa no disponible")
     );
   }
 
@@ -134,13 +183,47 @@ function pintarVista(
 }
 
 /* =====================================================
-   PESTAÑAS DEL MODAL
+   SANDBOX P5.JS EN MODAL
    ===================================================== */
+
+let p5Instancia = null;
+
+function destruirInstanciaP5() {
+  if (p5Instancia) {
+    p5Instancia.remove();
+    p5Instancia = null;
+  }
+  const contenedorCanvas = $("#p5-sandbox-canvas");
+  if (contenedorCanvas) contenedorCanvas.replaceChildren();
+}
+
+function ejecutarCodigoP5(codigoUsuario) {
+  destruirInstanciaP5();
+
+  const contenedorCanvas = $("#p5-sandbox-canvas");
+  if (!contenedorCanvas) return;
+
+  try {
+    const scriptSketch = new Function("p", `with(p) { ${codigoUsuario} }`);
+
+    p5Instancia = new p5((p) => {
+      try {
+        scriptSketch(p);
+      } catch (err) {
+        console.warn("Error p5:", err);
+      }
+    }, contenedorCanvas);
+  } catch (err) {
+    console.error("Error de código p5.js:", err);
+  }
+}
 
 const tabBtnPreview = $("#tab-btn-preview");
 const tabBtnCode = $("#tab-btn-code");
 const tabPreview = $("#modal-tab-preview");
 const tabCode = $("#modal-tab-code");
+const btnEjecutar = $("#run-p5-code");
+const txtCodigoInput = $("#p5-code-input");
 
 function cambiarPestaña(mostrarCodigo) {
   if (!tabBtnPreview || !tabBtnCode) return;
@@ -152,11 +235,23 @@ function cambiarPestaña(mostrarCodigo) {
   tabBtnCode.classList.toggle("active", mostrarCodigo);
   tabBtnCode.setAttribute("aria-selected", mostrarCodigo);
   tabCode.hidden = !mostrarCodigo;
+
+  if (mostrarCodigo && txtCodigoInput) {
+    ejecutarCodigoP5(txtCodigoInput.value);
+  } else {
+    destruirInstanciaP5();
+  }
 }
 
 if (tabBtnPreview && tabBtnCode) {
   tabBtnPreview.addEventListener("click", () => cambiarPestaña(false));
   tabBtnCode.addEventListener("click", () => cambiarPestaña(true));
+}
+
+if (btnEjecutar && txtCodigoInput) {
+  btnEjecutar.addEventListener("click", () => {
+    ejecutarCodigoP5(txtCodigoInput.value);
+  });
 }
 
 /* =====================================================
@@ -172,15 +267,11 @@ function abrirDetalle(elemento, etiqueta, esProyecto = false) {
   $("#detail-label").className = esProyecto ? "eyebrow violet" : "eyebrow cyan";
   $("#detail-title").textContent = elemento.titulo;
 
-  pintarVista(
-    $("#detail-preview"),
-    elemento.imagen,
-    elemento.titulo,
-    true
-  );
+  pintarVista($("#detail-preview"), elemento.imagen, elemento.titulo, true);
 
-  const codigoTxt = elemento.codigo || "// Código p5.js no disponible para este encargo.";
-  $("#detail-code").textContent = codigoTxt;
+  if (txtCodigoInput) {
+    txtCodigoInput.value = elemento.codigo || "// Código p5.js no disponible.";
+  }
 
   const descripcion = (elemento.descripcion || "").trim();
   $("#detail-description").textContent = descripcion;
@@ -200,38 +291,14 @@ function abrirDetalle(elemento, etiqueta, esProyecto = false) {
   $("#close-detail").focus({ preventScroll: true });
 }
 
-$("#close-detail").addEventListener("click", () => {
-  modal.close();
-});
+$("#close-detail").addEventListener("click", () => modal.close());
 
 modal.addEventListener("close", () => {
   document.body.classList.remove("modal-open");
+  destruirInstanciaP5();
   if (ultimoBoton && ultimoBoton.isConnected) {
     ultimoBoton.focus({ preventScroll: true });
   }
-});
-
-function estaFueraDelModal(evento) {
-  const limites = modal.getBoundingClientRect();
-  return (
-    evento.clientX < limites.left ||
-    evento.clientX > limites.right ||
-    evento.clientY < limites.top ||
-    evento.clientY > limites.bottom
-  );
-}
-
-let pulsacionFuera = false;
-
-modal.addEventListener("pointerdown", (evento) => {
-  pulsacionFuera = evento.target === modal && estaFueraDelModal(evento);
-});
-
-modal.addEventListener("click", (evento) => {
-  if (pulsacionFuera && evento.target === modal && estaFueraDelModal(evento)) {
-    modal.close();
-  }
-  pulsacionFuera = false;
 });
 
 /* =====================================================
@@ -259,8 +326,6 @@ tareas.forEach((tarea, indice) => {
   boton.type = "button";
   boton.className = "text-link task-open";
   boton.setAttribute("aria-label", `Ver detalle del encargo ${indice + 1}: ${tarea.titulo}`);
-  boton.setAttribute("aria-haspopup", "dialog");
-  boton.setAttribute("aria-controls", "detail");
 
   const flecha = crearTexto("span", "", "→");
   flecha.setAttribute("aria-hidden", "true");
@@ -281,19 +346,14 @@ tareas.forEach((tarea, indice) => {
    ===================================================== */
 
 $("#project-title").textContent = proyecto.titulo;
-
-pintarVista(
-  $("#project-preview"),
-  proyecto.imagen,
-  proyecto.titulo
-);
+pintarVista($("#project-preview"), proyecto.imagen, proyecto.titulo);
 
 $("#open-project").addEventListener("click", () => {
   abrirDetalle(proyecto, "Proyecto final · Entrega U1", true);
 });
 
 /* =====================================================
-   DESPLAZAMIENTO HORIZONTAL
+   DESPLAZAMIENTO HORIZONTAL Y FILTROS
    ===================================================== */
 
 function desplazarTareas(direccion) {
@@ -318,21 +378,6 @@ function actualizarControles() {
 botonAnterior.addEventListener("click", () => desplazarTareas(-1));
 botonSiguiente.addEventListener("click", () => desplazarTareas(1));
 
-lista.addEventListener("scroll", actualizarControles, { passive: true });
-window.addEventListener("resize", actualizarControles);
-window.addEventListener("load", actualizarControles);
-
-if ("ResizeObserver" in window) {
-  const observadorLista = new ResizeObserver(actualizarControles);
-  observadorLista.observe(lista);
-}
-
-actualizarControles();
-
-/* =====================================================
-   FILTRO Y BÚSQUEDA INTERACTIVA
-   ===================================================== */
-
 function iniciarFiltroTareas() {
   const buscador = $("#task-search");
   const botonesFiltro = document.querySelectorAll(".tag-btn");
@@ -345,18 +390,13 @@ function iniciarFiltroTareas() {
 
   function aplicarFiltros() {
     tarjetas.forEach((tarjeta, indice) => {
-      const tituloElemento = tarjeta.querySelector("h3");
-      const tituloTexto = tituloElemento ? tituloElemento.textContent.toLowerCase() : "";
+      const tituloTexto = tarjeta.querySelector("h3")?.textContent.toLowerCase() || "";
       const numeroEncargo = (indice + 1).toString();
 
       const coincideFiltro = filtroActivo === "todos" || filtroActivo === numeroEncargo;
       const coincideTexto = tituloTexto.includes(textoBusqueda);
 
-      if (coincideFiltro && coincideTexto) {
-        tarjeta.classList.remove("is-hidden");
-      } else {
-        tarjeta.classList.add("is-hidden");
-      }
+      tarjeta.classList.toggle("is-hidden", !(coincideFiltro && coincideTexto));
     });
 
     actualizarControles();
@@ -380,12 +420,158 @@ function iniciarFiltroTareas() {
 iniciarFiltroTareas();
 
 /* =====================================================
-   APARICIONES SUAVES
+   CANVAS GENERATIVO LUMÍNICO Y EFECTOS
    ===================================================== */
+
+function iniciarMovimientoPortada() {
+  const hero = $(".hero");
+  const canvas = $("#hero-canvas");
+  if (!hero || !canvas) return;
+
+  const ctx = canvas.getContext("2d");
+  let animId = null;
+  let mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+  let ancho = (canvas.width = hero.clientWidth);
+  let alto = (canvas.height = hero.clientHeight);
+
+  function redimensionar() {
+    ancho = canvas.width = hero.clientWidth;
+    alto = canvas.height = hero.clientHeight;
+    mouse.targetX = ancho * 0.65;
+    mouse.targetY = alto * 0.5;
+  }
+
+  window.addEventListener("resize", redimensionar);
+  redimensionar();
+
+  hero.addEventListener("mousemove", (e) => {
+    const rect = hero.getBoundingClientRect();
+    mouse.targetX = e.clientX - rect.left;
+    mouse.targetY = e.clientY - rect.top;
+  });
+
+  let t = 0;
+
+  function renderizar() {
+    ctx.fillStyle = "rgba(18, 20, 21, 0.22)";
+    ctx.fillRect(0, 0, ancho, alto);
+
+    mouse.x += (mouse.targetX - mouse.x) * 0.04;
+    mouse.y += (mouse.targetY - mouse.y) * 0.04;
+
+    t += 0.008;
+
+    const centroX = ancho * 0.62;
+    const centroY = alto * 0.5;
+    const lineas = 36;
+    const radioBase = Math.min(ancho, alto) * 0.28;
+
+    for (let i = 0; i < lineas; i++) {
+      const angulo = (i / lineas) * Math.PI * 2 + Math.sin(t * 0.5 + i * 0.1) * 0.2;
+      const x1 = centroX + Math.cos(angulo) * (radioBase * 0.2);
+      const y1 = centroY + Math.sin(angulo) * (radioBase * 0.2);
+
+      const x2 = centroX + Math.cos(angulo) * radioBase + (mouse.x - centroX) * 0.15;
+      const y2 = centroY + Math.sin(angulo) * radioBase + (mouse.y - centroY) * 0.15;
+
+      const gradiente = ctx.createLinearGradient(x1, y1, x2, y2);
+      gradiente.addColorStop(0, i % 2 === 0 ? "rgba(232, 141, 57, 0.6)" : "rgba(95, 168, 184, 0.5)");
+      gradiente.addColorStop(1, "transparent");
+
+      ctx.strokeStyle = gradiente;
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+    }
+
+    if (!reducirMovimiento.matches && !document.hidden) {
+      animId = requestAnimationFrame(renderizar);
+    }
+  }
+
+  function actualizar() {
+    if (reducirMovimiento.matches || document.hidden) {
+      if (animId) cancelAnimationFrame(animId);
+      animId = null;
+    } else if (!animId) {
+      renderizar();
+    }
+  }
+
+  actualizar();
+}
+
+iniciarMovimientoPortada();
+
+/* =====================================================
+   CURSOR Y TRAGALUZ EN SCROLL
+   ===================================================== */
+
+function iniciarCursorPersonalizado() {
+  const cursor = $("#custom-cursor");
+  if (!cursor || reducirMovimiento.matches) return;
+  if (!window.matchMedia("(pointer: fine)").matches) return;
+
+  let mouseX = -100, mouseY = -100, cursorX = -100, cursorY = -100;
+
+  window.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursor.classList.add("is-active");
+  });
+
+  function animarCursor() {
+    cursorX += (mouseX - cursorX) * 0.2;
+    cursorY += (mouseY - cursorY) * 0.2;
+    cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+    requestAnimationFrame(animarCursor);
+  }
+
+  animarCursor();
+
+  document.addEventListener("mouseover", (e) => {
+    if (e.target.closest("a, button, input, .task-card, .project-card")) {
+      cursor.classList.add("is-hovering");
+    }
+  });
+
+  document.addEventListener("mouseout", (e) => {
+    if (e.target.closest("a, button, input, .task-card, .project-card")) {
+      cursor.classList.remove("is-hovering");
+    }
+  });
+}
+
+function iniciarEfectoTragaluz() {
+  const tragaluz = $("#skylight-beam");
+  if (!tragaluz || reducirMovimiento.matches) return;
+
+  let mouseX = window.innerWidth * 0.7;
+  let targetX = mouseX, targetY = 0, actualY = 0;
+
+  window.addEventListener("mousemove", (e) => { targetX = e.clientX; });
+
+  function animarLuz() {
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const porcentajeScroll = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+
+    targetY = (window.innerHeight * 0.2) + (porcentajeScroll * window.innerHeight * 0.6);
+    mouseX += (targetX - mouseX) * 0.05;
+    actualY += (targetY - actualY) * 0.05;
+
+    tragaluz.style.setProperty("--beam-x", `${(mouseX / window.innerWidth) * 100}%`);
+    tragaluz.style.setProperty("--beam-y", `${(actualY / window.innerHeight) * 100}%`);
+
+    requestAnimationFrame(animarLuz);
+  }
+
+  animarLuz();
+}
 
 function iniciarApariciones() {
   const elementos = document.querySelectorAll(".reveal");
-
   if (reducirMovimiento.matches || !("IntersectionObserver" in window)) return;
 
   const observador = new IntersectionObserver(
@@ -400,198 +586,12 @@ function iniciarApariciones() {
     { threshold: 0.08 }
   );
 
-  elementos.forEach((elemento) => {
-    elemento.classList.add("is-pending");
-    observador.observe(elemento);
-  });
-}
-
-iniciarApariciones();
-
-/* =====================================================
-   CANVAS GENERATIVO EN PORTADA
-   ===================================================== */
-
-function iniciarMovimientoPortada() {
-  const hero = $(".hero");
-  const canvas = $("#hero-canvas");
-  const boton = $("#toggle-hero-motion");
-
-  if (!hero || !canvas || !boton) return;
-
-  const ctx = canvas.getContext("2d");
-  let animId = null;
-  let pausaManual = false;
-
-  let mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
-  let ancho = (canvas.width = hero.clientWidth);
-  let alto = (canvas.height = hero.clientHeight);
-
-  function redimensionar() {
-    ancho = canvas.width = hero.clientWidth;
-    alto = canvas.height = hero.clientHeight;
-    mouse.targetX = ancho / 2;
-    mouse.targetY = alto / 2;
-  }
-
-  window.addEventListener("resize", redimensionar);
-  redimensionar();
-
-  hero.addEventListener("mousemove", (e) => {
-    const rect = hero.getBoundingClientRect();
-    mouse.targetX = e.clientX - rect.left;
-    mouse.targetY = e.clientY - rect.top;
-  });
-
-  let tiempo = 0;
-
-  function renderizar() {
-    ctx.fillStyle = "rgba(8, 9, 11, 0.25)";
-    ctx.fillRect(0, 0, ancho, alto);
-
-    mouse.x += (mouse.targetX - mouse.x) * 0.05;
-    mouse.y += (mouse.targetY - mouse.y) * 0.05;
-
-    tiempo += 0.015;
-    const totalAnillos = 14;
-
-    ctx.lineWidth = 1.2;
-
-    for (let i = 0; i < totalAnillos; i++) {
-      const proporcion = i / totalAnillos;
-      const angulo = proporcion * Math.PI * 2 + tiempo * 0.4;
-
-      const offsetX = (mouse.x - ancho / 2) * (0.1 + proporcion * 0.2);
-      const offsetY = (mouse.y - alto / 2) * (0.1 + proporcion * 0.2);
-
-      const cx = ancho / 2 + Math.cos(angulo) * (100 + i * 15) + offsetX;
-      const cy = alto / 2 + Math.sin(angulo) * (60 + i * 10) + offsetY;
-
-      const radio = 40 + Math.sin(tiempo + i * 0.5) * 25 + i * 8;
-
-      ctx.strokeStyle = i % 2 === 0
-        ? `rgba(137, 207, 224, ${0.15 + proporcion * 0.35})`
-        : `rgba(186, 166, 232, ${0.12 + proporcion * 0.3})`;
-
-      ctx.beginPath();
-      ctx.arc(cx, cy, Math.max(5, radio), 0, Math.PI * 2);
-      ctx.stroke();
-    }
-
-    if (!pausaManual && !reducirMovimiento.matches && !document.hidden) {
-      animId = requestAnimationFrame(renderizar);
-    }
-  }
-
-  function actualizarMovimiento() {
-    const detener = pausaManual || reducirMovimiento.matches || document.hidden;
-
-    boton.hidden = reducirMovimiento.matches;
-    boton.textContent = pausaManual ? "Reanudar movimiento" : "Pausar movimiento";
-
-    if (detener) {
-      if (animId) cancelAnimationFrame(animId);
-      animId = null;
-    } else if (!animId) {
-      renderizar();
-    }
-  }
-
-  boton.addEventListener("click", () => {
-    pausaManual = !pausaManual;
-    actualizarMovimiento();
-  });
-
-  reducirMovimiento.addEventListener("change", actualizarMovimiento);
-  document.addEventListener("visibilitychange", actualizarMovimiento);
-
-  actualizarMovimiento();
-}
-
-iniciarMovimientoPortada();
-
-/* =====================================================
-   CURSOR PERSONALIZADO
-   ===================================================== */
-
-function iniciarCursorPersonalizado() {
-  const cursor = $("#custom-cursor");
-
-  if (!cursor || reducirMovimiento.matches) return;
-  if (!window.matchMedia("(pointer: fine)").matches) return;
-
-  let mouseX = -100;
-  let mouseY = -100;
-  let cursorX = -100;
-  let cursorY = -100;
-
-  window.addEventListener("mousemove", (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    cursor.classList.add("is-active");
-  });
-
-  document.addEventListener("mouseleave", () => {
-    cursor.classList.remove("is-active");
-  });
-
-  function animarCursor() {
-    cursorX += (mouseX - cursorX) * 0.2;
-    cursorY += (mouseY - cursorY) * 0.2;
-
-    cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
-
-    requestAnimationFrame(animarCursor);
-  }
-
-  animarCursor();
-
-  document.addEventListener("mouseover", (e) => {
-    if (e.target.closest("a, button, [role='button'], input, .task-card, .project-card")) {
-      cursor.classList.add("is-hovering");
-    }
-  });
-
-  document.addEventListener("mouseout", (e) => {
-    if (e.target.closest("a, button, [role='button'], input, .task-card, .project-card")) {
-      cursor.classList.remove("is-hovering");
-    }
+  elementos.forEach((el) => {
+    el.classList.add("is-pending");
+    observador.observe(el);
   });
 }
 
 iniciarCursorPersonalizado();
-
-/* =====================================================
-   EFECTO 3D TILT EN TARJETAS
-   ===================================================== */
-
-function iniciarEfectoTilt() {
-  if (reducirMovimiento.matches) return;
-  if (!window.matchMedia("(pointer: fine)").matches) return;
-
-  const tarjetas = document.querySelectorAll(".task-card, .project-card");
-
-  tarjetas.forEach((tarjeta) => {
-    tarjeta.addEventListener("mousemove", (e) => {
-      const rect = tarjeta.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      const centroX = rect.width / 2;
-      const centroY = rect.height / 2;
-
-      const rotacionX = ((y - centroY) / centroY) * -8;
-      const rotacionY = ((x - centroX) / centroX) * 8;
-
-      tarjeta.style.transform = `perspective(1000px) rotateX(${rotacionX}deg) rotateY(${rotacionY}deg) translateZ(6px)`;
-    });
-
-    tarjeta.style.transition = "transform 250ms var(--ease), border-color 250ms ease";
-
-    tarjeta.addEventListener("mouseleave", () => {
-      tarjeta.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)";
-    });
-  });
-}
-
-iniciarEfectoTilt();
+iniciarEfectoTragaluz();
+iniciarApariciones();
