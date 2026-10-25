@@ -1,19 +1,25 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#08090b">
-  <meta name="description"
-        content="Portafolio académico de Imagen Escrita 2026.">
+  <meta
+    name="description"
+    content="Portafolio académico de Imagen Escrita 2026."
+  >
+
   <title>Imagen Escrita 2026</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
-        rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <script src="app.js" defer></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
 </head>
 
 <body>
@@ -36,59 +42,68 @@
   </header>
 
   <main id="contenido">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="container hero-inner">
-        <div class="hero-labels muted small">
-          <span class="eyebrow">Portada / Animación p5.js</span>
-          <span>Marcador estático</span>
-        </div>
+    <section
+      class="hero-animation"
+      aria-label="Animación inicial en p5.js"
+    >
+      <iframe
+        class="hero-sketch"
+        src="https://editor.p5js.org/valent.na/full/20C2N5keQ"
+        title="Animación inicial: estrellitas-mini"
+        loading="eager"
+        allowfullscreen
+      ></iframe>
 
-        <div class="hero-center">
-          <iframe src="https://editor.p5js.org/valent.na/full/20C2N5keQ"></iframe>
-          <div class="hero-symbol">
-            <span class="cross" aria-hidden="true"></span>
-          </div>
+      <div class="hero-animation-footer">
+        <div class="container hero-animation-links">
+          <a href="#asignatura">↓ Asignatura y portafolio</a>
 
-          <h1 id="hero-title">Portafolio Imagen Escrita 2026</h1>
-          <p class="muted">
-            Espacio reservado a la animación inicial.
-            Sin movimiento en esta representación.
-          </p>
-
-          <a class="button" data-link="portada">
-            Ver código p5.js <span aria-hidden="true">↗</span>
+          <a
+            href="https://editor.p5js.org/valent.na/sketches/20C2N5keQ"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Ver código p5.js ↗
           </a>
-          <small class="muted" data-url="portada">[URL de p5.js]</small>
         </div>
-
-        <a class="hero-next muted small" href="#asignatura">
-          ↓ Asignatura y portafolio
-        </a>
       </div>
     </section>
 
-    <section id="asignatura" class="container subject">
+    <section
+      id="asignatura"
+      class="container subject"
+      aria-labelledby="subject-title"
+    >
       <p class="eyebrow muted">Asignatura</p>
-      <h2>Imagen Escrita 2026</h2>
+
+      <h1 id="subject-title">Imagen Escrita 2026</h1>
+
       <p class="intro muted">
         Exploración de imagen, escritura y experimentación visual con p5.js.
         Un portafolio para reunir tareas, procesos y un proyecto de la asignatura.
       </p>
+
       <div class="inline-links">
         <a class="button" data-link="asignatura">
-          Página de la asignatura <span aria-hidden="true">↗</span>
+          Página de la asignatura
+          <span aria-hidden="true">↗</span>
         </a>
+
         <span class="muted small" data-url="asignatura">
           [URL de asignatura]
         </span>
       </div>
     </section>
 
-    <section id="tareas" class="container section">
+    <section
+      id="tareas"
+      class="container section"
+      aria-labelledby="tasks-title"
+    >
       <div class="section-heading">
         <div>
           <p class="eyebrow cyan">Tareas</p>
-          <h2>Ejercicios de la asignatura</h2>
+          <h2 id="tasks-title">Ejercicios de la asignatura</h2>
           <p class="muted small">
             Tarjetas de ejemplo · contenidos por completar
           </p>
@@ -96,32 +111,78 @@
 
         <div class="scroll-controls">
           <span class="muted small">Desplazamiento horizontal</span>
-          <button type="button" id="previous" aria-label="Tareas anteriores">←</button>
-          <button type="button" id="next" aria-label="Tareas siguientes">→</button>
+
+          <button
+            type="button"
+            id="previous"
+            aria-label="Tareas anteriores"
+            aria-controls="task-list"
+          >
+            ←
+          </button>
+
+          <button
+            type="button"
+            id="next"
+            aria-label="Tareas siguientes"
+            aria-controls="task-list"
+          >
+            →
+          </button>
         </div>
       </div>
 
-      <div id="task-list" class="task-list"
-           role="region" aria-label="Tareas de la asignatura" tabindex="0">
-      </div>
+      <div
+        id="task-list"
+        class="task-list"
+        role="region"
+        aria-label="Tareas de la asignatura"
+        tabindex="0"
+      ></div>
+
+      <noscript>
+        <p class="muted">
+          Activa JavaScript para consultar las tareas y sus detalles.
+        </p>
+      </noscript>
     </section>
 
-    <section id="proyecto" class="container section">
+    <section
+      id="proyecto"
+      class="container section"
+      aria-labelledby="project-section-title"
+    >
       <p class="eyebrow violet">Proyectos</p>
-      <h2>Proyecto final</h2>
+      <h2 id="project-section-title">Proyecto final</h2>
 
       <article class="project-card">
-        <div id="project-preview" class="preview project-preview"></div>
+        <div
+          id="project-preview"
+          class="preview project-preview"
+        ></div>
+
         <div class="project-info">
           <div>
-            <p class="eyebrow violet">Ejemplo de estructura · Un proyecto</p>
+            <p class="eyebrow violet">
+              Ejemplo de estructura · Un proyecto
+            </p>
+
             <h3 id="project-title">[Título del proyecto]</h3>
+
             <p id="project-summary" class="muted">
               [Descripción breve del proyecto final.]
             </p>
           </div>
-          <button type="button" id="open-project" class="text-link">
-            Ver proyecto <span aria-hidden="true">→</span>
+
+          <button
+            type="button"
+            id="open-project"
+            class="text-link"
+            aria-haspopup="dialog"
+            aria-controls="detail"
+          >
+            Ver proyecto
+            <span aria-hidden="true">→</span>
           </button>
         </div>
       </article>
@@ -137,10 +198,12 @@
           <h2 id="contact-name">[Nombre]</h2>
           <p id="contact-role" class="muted">[Rol]</p>
         </div>
+
         <div>
           <p class="eyebrow muted">Correo</p>
           <a id="contact-email" class="text-link">[Correo]</a>
         </div>
+
         <div>
           <p class="eyebrow muted">Wiki</p>
           <a data-link="wiki" class="text-link">[URL de wiki]</a>
@@ -160,18 +223,35 @@
         <p id="detail-label" class="eyebrow cyan">
           Tarea / Ejemplo de estructura
         </p>
+
         <h2 id="detail-title">[Título de la tarea]</h2>
       </div>
-      <button type="button" id="close-detail" class="close"
-              aria-label="Cerrar detalle">×</button>
+
+      <button
+        type="button"
+        id="close-detail"
+        class="close"
+        aria-label="Cerrar detalle"
+        autofocus
+      >
+        ×
+      </button>
     </div>
 
     <div class="modal-body">
-      <div id="detail-preview" class="preview detail-preview"></div>
+      <div
+        id="detail-preview"
+        class="preview detail-preview"
+      ></div>
 
       <div class="preview-caption muted">
-        <span id="detail-caption">p5.js / Representación estática</span>
-        <span>Visual de ejemplo · no corresponde a una tarea real</span>
+        <span id="detail-caption">
+          p5.js / Representación estática
+        </span>
+
+        <span id="detail-example-note">
+          Visual de ejemplo · no corresponde a una tarea real
+        </span>
       </div>
 
       <div class="description">
@@ -182,15 +262,26 @@
       <div class="modal-bottom">
         <div class="resource">
           <span class="eyebrow muted">Ver en p5.js</span>
-          <a id="detail-p5-text" class="text-link">[URL de p5.js]</a>
+          <a id="detail-p5-text" class="text-link">
+            [URL de p5.js]
+          </a>
         </div>
+
         <div class="resource">
           <span class="eyebrow muted">Ver en wiki</span>
-          <a id="detail-wiki-text" class="text-link">[URL de wiki]</a>
+          <a id="detail-wiki-text" class="text-link">
+            [URL de wiki]
+          </a>
         </div>
+
         <div class="modal-actions">
-          <a id="detail-p5" class="button">Ver en p5.js ↗</a>
-          <a id="detail-wiki" class="button button-outline">Ver en wiki ↗</a>
+          <a id="detail-p5" class="button">
+            Ver en p5.js ↗
+          </a>
+
+          <a id="detail-wiki" class="button button-outline">
+            Ver en wiki ↗
+          </a>
         </div>
       </div>
     </div>
