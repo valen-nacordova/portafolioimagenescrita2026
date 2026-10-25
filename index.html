@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -19,6 +19,13 @@
   >
 
   <link rel="stylesheet" href="./style.css">
+
+  <!-- Biblioteca de p5.js: debe cargarse antes de app.js -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js"
+    defer
+  ></script>
+
   <script src="./app.js" defer></script>
 </head>
 
@@ -42,21 +49,30 @@
   </header>
 
   <main id="contenido">
-    <section
-      class="hero-animation"
-      aria-label="Animación inicial en p5.js"
-    >
-      <iframe
-        class="hero-sketch"
-        src="https://editor.p5js.org/valent.na/full/20C2N5keQ"
-        title="Animación inicial: estrellitas-mini"
-        loading="eager"
-        allowfullscreen
-      ></iframe>
+    <section class="hero-animation" aria-label="Portada">
+      <div
+        id="sketch-container"
+        role="img"
+        aria-label="Campo de 700 partículas blancas que se desplazan hacia la derecha sobre un fondo negro."
+      >
+        <p id="sketch-fallback" class="muted">
+          Animación de partículas · Imagen Escrita 2026
+        </p>
+      </div>
 
       <div class="hero-animation-footer">
         <div class="container hero-animation-links">
           <a href="#asignatura">↓ Asignatura y portafolio</a>
+
+          <button
+            id="toggle-animation"
+            class="text-link"
+            type="button"
+            aria-controls="sketch-container"
+            hidden
+          >
+            Pausar animación
+          </button>
 
           <a
             href="https://editor.p5js.org/valent.na/sketches/20C2N5keQ"
@@ -85,8 +101,7 @@
 
       <div class="inline-links">
         <a class="button" data-link="asignatura">
-          Página de la asignatura
-          <span aria-hidden="true">↗</span>
+          Página de la asignatura ↗
         </a>
 
         <span class="muted small" data-url="asignatura">
@@ -113,22 +128,18 @@
           <span class="muted small">Desplazamiento horizontal</span>
 
           <button
-            type="button"
             id="previous"
+            type="button"
             aria-label="Tareas anteriores"
             aria-controls="task-list"
-          >
-            ←
-          </button>
+          >←</button>
 
           <button
-            type="button"
             id="next"
+            type="button"
             aria-label="Tareas siguientes"
             aria-controls="task-list"
-          >
-            →
-          </button>
+          >→</button>
         </div>
       </div>
 
@@ -142,7 +153,7 @@
 
       <noscript>
         <p class="muted">
-          Activa JavaScript para consultar las tareas y sus detalles.
+          Activa JavaScript para ver las tareas y la animación.
         </p>
       </noscript>
     </section>
@@ -156,33 +167,27 @@
       <h2 id="project-section-title">Proyecto final</h2>
 
       <article class="project-card">
-        <div
-          id="project-preview"
-          class="preview project-preview"
-        ></div>
+        <div id="project-preview" class="preview project-preview"></div>
 
         <div class="project-info">
           <div>
             <p class="eyebrow violet">
               Ejemplo de estructura · Un proyecto
             </p>
-
             <h3 id="project-title">[Título del proyecto]</h3>
-
             <p id="project-summary" class="muted">
               [Descripción breve del proyecto final.]
             </p>
           </div>
 
           <button
-            type="button"
             id="open-project"
             class="text-link"
+            type="button"
             aria-haspopup="dialog"
             aria-controls="detail"
           >
-            Ver proyecto
-            <span aria-hidden="true">→</span>
+            Ver proyecto →
           </button>
         </div>
       </article>
@@ -223,32 +228,23 @@
         <p id="detail-label" class="eyebrow cyan">
           Tarea / Ejemplo de estructura
         </p>
-
         <h2 id="detail-title">[Título de la tarea]</h2>
       </div>
 
       <button
-        type="button"
         id="close-detail"
         class="close"
+        type="button"
         aria-label="Cerrar detalle"
         autofocus
-      >
-        ×
-      </button>
+      >×</button>
     </div>
 
     <div class="modal-body">
-      <div
-        id="detail-preview"
-        class="preview detail-preview"
-      ></div>
+      <div id="detail-preview" class="preview detail-preview"></div>
 
       <div class="preview-caption muted">
-        <span id="detail-caption">
-          p5.js / Representación estática
-        </span>
-
+        <span id="detail-caption">p5.js / Representación estática</span>
         <span id="detail-example-note">
           Visual de ejemplo · no corresponde a una tarea real
         </span>
@@ -262,26 +258,17 @@
       <div class="modal-bottom">
         <div class="resource">
           <span class="eyebrow muted">Ver en p5.js</span>
-          <a id="detail-p5-text" class="text-link">
-            [URL de p5.js]
-          </a>
+          <a id="detail-p5-text" class="text-link">[URL de p5.js]</a>
         </div>
 
         <div class="resource">
           <span class="eyebrow muted">Ver en wiki</span>
-          <a id="detail-wiki-text" class="text-link">
-            [URL de wiki]
-          </a>
+          <a id="detail-wiki-text" class="text-link">[URL de wiki]</a>
         </div>
 
         <div class="modal-actions">
-          <a id="detail-p5" class="button">
-            Ver en p5.js ↗
-          </a>
-
-          <a id="detail-wiki" class="button button-outline">
-            Ver en wiki ↗
-          </a>
+          <a id="detail-p5" class="button">Ver en p5.js ↗</a>
+          <a id="detail-wiki" class="button button-outline">Ver en wiki ↗</a>
         </div>
       </div>
     </div>

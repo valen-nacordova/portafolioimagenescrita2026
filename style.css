@@ -1,6 +1,5 @@
 :root {
   color-scheme: dark;
-
   --bg: #08090b;
   --surface: #141619;
   --text: #f3f4ef;
@@ -13,6 +12,10 @@
 
 * {
   box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
 }
 
 html {
@@ -38,13 +41,13 @@ a {
   text-decoration: none;
 }
 
+button {
+  font: inherit;
+}
+
 button,
 a {
   -webkit-tap-highlight-color: transparent;
-}
-
-button {
-  font: inherit;
 }
 
 button,
@@ -136,8 +139,8 @@ h3 {
 /* Cabecera */
 
 .header {
-  border-bottom: 1px solid var(--border);
   background: var(--bg);
+  border-bottom: 1px solid var(--border);
 }
 
 .header-inner {
@@ -172,24 +175,39 @@ nav span {
   color: var(--border);
 }
 
-/* Portada con animación p5.js */
+/* Animación integrada */
 
 .hero-animation {
-  background: var(--bg);
+  background: #000;
   border-bottom: 1px solid var(--border);
 }
 
-.hero-sketch {
-  display: block;
+#sketch-container {
+  position: relative;
   width: 100%;
-  height: 760px;
-  height: clamp(420px, 76svh, 760px);
-  border: 0;
-  background: var(--bg);
+  height: 600px;
+  height: clamp(380px, 72svh, 760px);
+  overflow: hidden;
+  background: #000;
+}
+
+#sketch-container canvas {
+  display: block;
+}
+
+#sketch-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  text-align: center;
+  pointer-events: none;
 }
 
 .hero-animation-footer {
   padding-block: 20px;
+  background: var(--bg);
   border-top: 1px solid var(--border);
 }
 
@@ -197,15 +215,16 @@ nav span {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 16px 24px;
   font-size: 12px;
 }
 
-.hero-animation-links a:first-child {
+.hero-animation-links > a:first-child {
   color: var(--muted);
 }
 
-.hero-animation-links a:last-child {
+.hero-animation-links > a:last-child {
   color: var(--lime);
 }
 
@@ -213,7 +232,7 @@ nav span {
   text-decoration: underline;
 }
 
-/* Botones y enlaces */
+/* Botones */
 
 .button {
   display: inline-flex;
@@ -235,15 +254,15 @@ nav span {
 
 .button-outline {
   background: transparent;
-  border-color: var(--border);
   color: var(--text);
+  border-color: var(--border);
 }
 
 .text-link {
-  color: var(--lime);
-  background: none;
-  border: 0;
   padding: 0;
+  border: 0;
+  background: none;
+  color: var(--lime);
   font-size: inherit;
   overflow-wrap: anywhere;
 }
@@ -269,11 +288,11 @@ nav span {
 }
 
 .inline-links {
-  margin-top: 28px;
   display: flex;
   align-items: center;
-  gap: 20px;
   flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 28px;
 }
 
 .inline-links > span {
@@ -303,7 +322,7 @@ nav span {
   margin-top: 12px;
 }
 
-/* Carrusel de tareas */
+/* Cinco tarjetas con desplazamiento horizontal */
 
 .scroll-controls {
   display: flex;
@@ -312,11 +331,11 @@ nav span {
 }
 
 .scroll-controls button {
-  border: 0;
-  color: var(--muted);
-  background: transparent;
   min-width: 36px;
   min-height: 36px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
 }
 
 .scroll-controls button:disabled {
@@ -355,22 +374,22 @@ nav span {
 }
 
 .preview {
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 12px;
   overflow: hidden;
+  background: var(--bg);
   color: var(--muted);
+  border-bottom: 1px solid var(--border);
   font-size: 12px;
 }
 
 .preview img {
+  display: block;
   width: 100%;
   height: 100%;
-  display: block;
   object-fit: cover;
 }
 
@@ -392,16 +411,16 @@ nav span {
 }
 
 .task-open {
-  margin-top: 16px;
-  padding-top: 10px;
-  width: 100%;
   display: flex;
   justify-content: space-between;
   gap: 16px;
+  width: 100%;
+  margin-top: 16px;
+  padding-top: 10px;
   font-size: 13px;
 }
 
-/* Marcadores de imagen */
+/* Marcadores */
 
 .cross {
   display: block;
@@ -440,11 +459,11 @@ nav span {
 }
 
 .project-info {
-  padding: 28px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   gap: 24px;
+  padding: 28px;
 }
 
 .project-info > div {
@@ -465,11 +484,11 @@ nav span {
   flex-shrink: 0;
 }
 
-/* Contacto y pie */
+/* Contacto */
 
 .footer {
-  border-top: 1px solid var(--border);
   padding-block: 56px 44px;
+  border-top: 1px solid var(--border);
 }
 
 .contact-grid {
@@ -492,15 +511,15 @@ nav span {
 }
 
 .footer-bottom {
-  border-top: 1px solid var(--border);
-  margin-top: 36px;
-  padding-top: 32px;
   display: flex;
   justify-content: space-between;
   gap: 20px;
+  margin-top: 36px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
 }
 
-/* Ventana de detalle */
+/* Detalle de tarea */
 
 dialog {
   width: min(800px, calc(100% - 32px));
@@ -508,10 +527,10 @@ dialog {
   max-height: calc(100dvh - 80px);
   margin: 40px auto;
   padding: 0;
+  overflow-y: auto;
   border: 1px solid var(--border);
   background: var(--surface);
   color: var(--text);
-  overflow-y: auto;
 }
 
 dialog::backdrop {
@@ -519,11 +538,11 @@ dialog::backdrop {
 }
 
 .modal-header {
-  padding: 20px 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+  padding: 20px 32px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -532,8 +551,8 @@ dialog::backdrop {
 }
 
 .modal-header h2 {
-  font-size: 22px;
   margin-top: 5px;
+  font-size: 22px;
 }
 
 .close {
@@ -585,9 +604,9 @@ dialog::backdrop {
 .modal-bottom {
   display: flex;
   align-items: flex-end;
+  flex-wrap: wrap;
   gap: 24px;
   margin-top: 24px;
-  flex-wrap: wrap;
 }
 
 .resource {
@@ -606,27 +625,23 @@ dialog::backdrop {
 
 .modal-actions {
   display: flex;
-  gap: 10px;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
-/* Celulares y pantallas pequeñas */
+/* Adaptación a celulares */
 
 @media (max-width: 760px) {
   .header-inner {
     flex-direction: column;
-    padding-block: 20px;
     gap: 16px;
+    padding-block: 20px;
   }
 
   nav {
-    gap: 14px;
-    flex-wrap: wrap;
     justify-content: center;
-  }
-
-  .hero-animation-links {
     flex-wrap: wrap;
+    gap: 14px;
   }
 
   .subject {
@@ -634,8 +649,8 @@ dialog::backdrop {
   }
 
   .section-heading {
-    align-items: flex-start;
     flex-direction: column;
+    align-items: flex-start;
   }
 
   .task-card {
@@ -643,8 +658,8 @@ dialog::backdrop {
   }
 
   .project-info {
-    align-items: flex-start;
     flex-direction: column;
+    align-items: flex-start;
   }
 
   .contact-grid {
@@ -662,10 +677,7 @@ dialog::backdrop {
     max-height: calc(100dvh - 32px);
   }
 
-  .modal-header {
-    padding: 20px;
-  }
-
+  .modal-header,
   .modal-body {
     padding: 20px;
   }

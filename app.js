@@ -3,14 +3,9 @@
 /* =====================================================
    CONTENIDO EDITABLE
 
-   Imágenes:
-   Usa rutas como "./assets/imagen1.png".
-
-   Enlaces:
-   Usa direcciones completas que comiencen con https://.
-   Deja "" si todavía no tienes el enlace.
-
-   La animación inicial se encuentra en el iframe del HTML.
+   Imágenes: "./assets/imagen1.png"
+   Enlaces: direcciones completas con https://
+   Deja "" cuando todavía no tengas un dato.
    ===================================================== */
 
 const sitio = {
@@ -80,7 +75,7 @@ const proyecto = {
 };
 
 /* =====================================================
-   FUNCIONAMIENTO
+   FUNCIONAMIENTO GENERAL
    ===================================================== */
 
 const $ = (selector) => document.querySelector(selector);
@@ -96,25 +91,16 @@ const reducirMovimiento = window.matchMedia(
 
 let ultimoBoton = null;
 
-/* Validar enlaces externos */
-
 function urlWeb(valor) {
   if (!valor) return "";
 
   try {
     const url = new URL(valor);
-
-    if (url.protocol === "https:" || url.protocol === "http:") {
-      return url.href;
-    }
-
-    return "";
+    return ["https:", "http:"].includes(url.protocol) ? url.href : "";
   } catch {
     return "";
   }
 }
-
-/* Activar o desactivar enlaces según su contenido */
 
 function configurarEnlace(elemento, valor) {
   const url = urlWeb(valor);
@@ -134,16 +120,12 @@ function configurarEnlace(elemento, valor) {
   }
 }
 
-/* Crear elementos con texto */
-
 function crearTexto(etiqueta, clase, contenido) {
   const elemento = document.createElement(etiqueta);
   elemento.className = clase;
   elemento.textContent = contenido;
   return elemento;
 }
-
-/* Mostrar una imagen o un marcador vacío */
 
 function pintarVista(contenedor, imagen, titulo, marcador) {
   contenedor.replaceChildren();
@@ -184,37 +166,28 @@ function pintarVista(contenedor, imagen, titulo, marcador) {
   img.src = url.href;
   img.alt = titulo;
   img.loading = "lazy";
-
-  img.addEventListener("error", mostrarMarcador, {
-    once: true
-  });
+  img.addEventListener("error", mostrarMarcador, { once: true });
 
   contenedor.append(img);
 }
 
-/* Enlaces generales */
+/* Enlaces y contacto */
 
 for (const clave of ["asignatura", "wiki"]) {
-  document
-    .querySelectorAll(`[data-link="${clave}"]`)
-    .forEach((enlace) => {
-      configurarEnlace(enlace, sitio[clave]);
+  document.querySelectorAll(`[data-link="${clave}"]`).forEach((enlace) => {
+    configurarEnlace(enlace, sitio[clave]);
 
-      if (clave === "wiki" && urlWeb(sitio[clave])) {
-        enlace.textContent = sitio[clave];
-      }
-    });
+    if (clave === "wiki" && urlWeb(sitio[clave])) {
+      enlace.textContent = sitio[clave];
+    }
+  });
 
-  document
-    .querySelectorAll(`[data-url="${clave}"]`)
-    .forEach((texto) => {
-      if (urlWeb(sitio[clave])) {
-        texto.textContent = sitio[clave];
-      }
-    });
+  document.querySelectorAll(`[data-url="${clave}"]`).forEach((texto) => {
+    if (urlWeb(sitio[clave])) {
+      texto.textContent = sitio[clave];
+    }
+  });
 }
-
-/* Contacto */
 
 $("#contact-name").textContent = sitio.nombre;
 $("#contact-role").textContent = sitio.rol;
@@ -229,7 +202,7 @@ if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sitio.correo)) {
   correo.title = "Correo pendiente de completar";
 }
 
-/* Abrir detalle de tarea o proyecto */
+/* Ventana de detalle */
 
 function abrirDetalle(elemento, esProyecto = false) {
   ultimoBoton = document.activeElement;
@@ -272,10 +245,7 @@ function abrirDetalle(elemento, esProyecto = false) {
   modal.showModal();
   modal.scrollTop = 0;
   document.body.classList.add("modal-open");
-
-  $("#close-detail").focus({
-    preventScroll: true
-  });
+  $("#close-detail").focus({ preventScroll: true });
 }
 
 /* Crear las cinco tarjetas */
@@ -287,12 +257,7 @@ tareas.forEach((tarea, indice) => {
   const vista = document.createElement("div");
   vista.className = "preview task-preview";
 
-  pintarVista(
-    vista,
-    tarea.imagen,
-    tarea.titulo,
-    "Vista previa vacía"
-  );
+  pintarVista(vista, tarea.imagen, tarea.titulo, "Vista previa vacía");
 
   const informacion = document.createElement("div");
   informacion.className = "task-info";
@@ -300,7 +265,6 @@ tareas.forEach((tarea, indice) => {
   const boton = document.createElement("button");
   boton.type = "button";
   boton.className = "text-link task-open";
-
   boton.setAttribute(
     "aria-label",
     `Ver tarea ${indice + 1}: ${tarea.titulo}`
@@ -311,14 +275,8 @@ tareas.forEach((tarea, indice) => {
   const flecha = crearTexto("span", "", "→");
   flecha.setAttribute("aria-hidden", "true");
 
-  boton.append(
-    crearTexto("span", "", "Ver tarea"),
-    flecha
-  );
-
-  boton.addEventListener("click", () => {
-    abrirDetalle(tarea);
-  });
+  boton.append(crearTexto("span", "", "Ver tarea"), flecha);
+  boton.addEventListener("click", () => abrirDetalle(tarea));
 
   informacion.append(
     crearTexto("p", "eyebrow cyan", "Ejemplo de estructura"),
@@ -331,7 +289,7 @@ tareas.forEach((tarea, indice) => {
   lista.append(tarjeta);
 });
 
-/* Proyecto final */
+/* Proyecto */
 
 $("#project-title").textContent = proyecto.titulo;
 $("#project-summary").textContent = proyecto.resumen;
@@ -347,25 +305,17 @@ $("#open-project").addEventListener("click", () => {
   abrirDetalle(proyecto, true);
 });
 
-/* Cerrar detalle */
+/* Cerrar el detalle: botón, Escape o clic fuera */
 
-$("#close-detail").addEventListener("click", () => {
-  modal.close();
-});
-
-/* Escape cierra el diálogo mediante su comportamiento nativo. */
+$("#close-detail").addEventListener("click", () => modal.close());
 
 modal.addEventListener("close", () => {
   document.body.classList.remove("modal-open");
 
   if (ultimoBoton && ultimoBoton.isConnected) {
-    ultimoBoton.focus({
-      preventScroll: true
-    });
+    ultimoBoton.focus({ preventScroll: true });
   }
 });
-
-/* Cerrar al pulsar fuera de la ventana */
 
 function estaFueraDelModal(evento) {
   const limites = modal.getBoundingClientRect();
@@ -397,11 +347,10 @@ modal.addEventListener("click", (evento) => {
   pulsacionFuera = false;
 });
 
-/* Desplazamiento de tarjetas */
+/* Carrusel */
 
 function desplazarTareas(direccion) {
   const tarjeta = lista.querySelector(".task-card");
-
   if (!tarjeta) return;
 
   const ancho = tarjeta.getBoundingClientRect().width;
@@ -415,29 +364,159 @@ function desplazarTareas(direccion) {
 
 function actualizarControles() {
   botonAnterior.disabled = lista.scrollLeft <= 1;
-
   botonSiguiente.disabled =
     lista.scrollLeft + lista.clientWidth >= lista.scrollWidth - 1;
 }
 
-botonAnterior.addEventListener("click", () => {
-  desplazarTareas(-1);
-});
+botonAnterior.addEventListener("click", () => desplazarTareas(-1));
+botonSiguiente.addEventListener("click", () => desplazarTareas(1));
 
-botonSiguiente.addEventListener("click", () => {
-  desplazarTareas(1);
-});
-
-lista.addEventListener("scroll", actualizarControles, {
-  passive: true
-});
-
+lista.addEventListener("scroll", actualizarControles, { passive: true });
 window.addEventListener("resize", actualizarControles);
 window.addEventListener("load", actualizarControles);
 
 if ("ResizeObserver" in window) {
-  const observador = new ResizeObserver(actualizarControles);
-  observador.observe(lista);
+  const observadorLista = new ResizeObserver(actualizarControles);
+  observadorLista.observe(lista);
 }
 
 actualizarControles();
+
+/* =====================================================
+   TU ANIMACIÓN P5.JS
+
+   Se mantiene el movimiento de tu sketch.
+   El lienzo se adapta al ancho y alto de la portada.
+   Se utiliza modo instancia para evitar conflictos.
+   ===================================================== */
+
+function iniciarAnimacion() {
+  const contenedor = $("#sketch-container");
+  const boton = $("#toggle-animation");
+  const fallback = $("#sketch-fallback");
+
+  if (typeof window.p5 !== "function") {
+    fallback.textContent =
+      "No se pudo cargar la animación. Puedes verla en el enlace a p5.js.";
+    return;
+  }
+
+  new window.p5((p) => {
+    const num = 700;
+    const particulas = [];
+
+    let pausada = reducirMovimiento.matches;
+    let observadorTamano;
+
+    function actualizarEstado() {
+      const detener = pausada || document.hidden;
+
+      if (detener) {
+        p.noLoop();
+      } else {
+        p.loop();
+      }
+
+      boton.textContent = pausada
+        ? "Reproducir animación"
+        : "Pausar animación";
+    }
+
+    function ajustarLienzo() {
+      const nuevoAncho = Math.max(1, Math.round(contenedor.clientWidth));
+      const nuevoAlto = Math.max(1, Math.round(contenedor.clientHeight));
+
+      if (nuevoAncho === p.width && nuevoAlto === p.height) {
+        return;
+      }
+
+      const anchoAnterior = Math.max(1, p.width);
+      const altoAnterior = Math.max(1, p.height);
+
+      for (const particula of particulas) {
+        particula.x *= nuevoAncho / anchoAnterior;
+        particula.y *= nuevoAlto / altoAnterior;
+      }
+
+      p.resizeCanvas(nuevoAncho, nuevoAlto);
+
+      if (!p.isLooping()) {
+        p.redraw();
+      }
+    }
+
+    p.setup = function () {
+      const ancho = Math.max(1, Math.round(contenedor.clientWidth));
+      const alto = Math.max(1, Math.round(contenedor.clientHeight));
+
+      p.pixelDensity(Math.min(window.devicePixelRatio || 1, 2));
+
+      const lienzo = p.createCanvas(ancho, alto);
+      lienzo.parent(contenedor);
+      lienzo.elt.setAttribute("aria-hidden", "true");
+
+      p.noStroke();
+
+      for (let i = 0; i < num; i++) {
+        particulas.push({
+          x: p.random(p.width),
+          y: p.random(p.height),
+          speed: p.random(0.5, 1.5),
+          size: p.random(0.8, 2)
+        });
+      }
+
+      fallback.hidden = true;
+      boton.hidden = false;
+
+      boton.addEventListener("click", () => {
+        pausada = !pausada;
+        actualizarEstado();
+      });
+
+      document.addEventListener("visibilitychange", actualizarEstado);
+
+      reducirMovimiento.addEventListener("change", (evento) => {
+        pausada = evento.matches;
+        actualizarEstado();
+      });
+
+      if ("ResizeObserver" in window) {
+        observadorTamano = new ResizeObserver(ajustarLienzo);
+        observadorTamano.observe(contenedor);
+      }
+
+      actualizarEstado();
+    };
+
+    p.draw = function () {
+      p.background(0);
+      p.fill(255, 180);
+
+      const mover = !pausada && !document.hidden;
+
+      for (const particula of particulas) {
+        if (mover) {
+          // Movimiento principal hacia la derecha.
+          particula.x += particula.speed;
+
+          // Pequeña variación vertical de tu sketch.
+          particula.y +=
+            p.sin(particula.x * 0.01 + p.frameCount * 0.02) * 0.4;
+
+          // Al salir por la derecha, reaparece por la izquierda.
+          if (particula.x > p.width) {
+            particula.x = 0;
+            particula.y = p.random(p.height);
+          }
+        }
+
+        p.ellipse(particula.x, particula.y, particula.size);
+      }
+    };
+
+    p.windowResized = ajustarLienzo;
+  }, contenedor);
+}
+
+iniciarAnimacion();
